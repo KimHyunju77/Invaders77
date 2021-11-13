@@ -43,6 +43,10 @@ public class GameState {
 		this.shipsDestroyed = shipsDestroyed;
 	}
 
+	public GameState() {
+
+	}
+
 	/**
 	 * @return the level
 	 */
@@ -77,5 +81,7 @@ public class GameState {
 	public final int getShipsDestroyed() {
 		return shipsDestroyed;
 	}
+
+
 
 }

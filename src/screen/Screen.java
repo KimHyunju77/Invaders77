@@ -43,7 +43,10 @@ public class Screen {
 	/** What kind of screen goes next. */
 	protected int returnCode;
 
-	/**
+	/**세팅 코드*/
+    protected int settingCode;
+
+    /**
 	 * Constructor, establishes the properties of the screen.
 	 * 
 	 * @param width

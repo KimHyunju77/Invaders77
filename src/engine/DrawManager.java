@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+
+import screen.PauseScreen;
 import screen.Screen;
 import entity.Entity;
 import entity.Ship;
@@ -49,6 +51,14 @@ public final class DrawManager {
 
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
+
+	public <selectionCooldown> void drawPauseTitle(PauseScreen<selectionCooldown> selectionCooldownPauseScreen) {
+	}
+
+	public <selectionCooldown> void drawPauseScreen(PauseScreen<selectionCooldown> selectionCooldownPauseScreen) {
+	}
+
+
 
 	/** Sprite types. */
 	public static enum SpriteType {
@@ -304,6 +314,7 @@ public final class DrawManager {
 	 */
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "Play";
+		String settingString = "Setting";
 		String highScoresString = "High scores";
 		String exitString = "exit";
 
@@ -319,12 +330,74 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, settingString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
 		if (option == 0)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 6);
+	}
+
+	/**세팅 메뉴*/
+	public void drawSettingmenu(final Screen screen, final int option){
+		if (option == 1)
+				backBufferGraphics.setColor(Color.GREEN);
+		else
+				backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, "Default",
+						screen.getHeight() * 3 / 10);
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, "Hard",
+						screen.getHeight() * 3 / 10 + 25);
+		if (option == 3)
+				backBufferGraphics.setColor(Color.GREEN);
+		else
+				backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, "Expert",
+						screen.getHeight() * 3 / 10 + 50);
+	}
+
+	/**pause*/
+	public void drawPauseScreen(final Screen screen, final int score) {
+		String currentScore = "Your current score";
+		String scoreString = String.format("score %04d", score);
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, currentScore,
+				screen.getHeight() / 3 );
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, scoreString,
+				screen.getHeight() / 2 - 20);
+
+	}
+
+
+	public void drawPauseCheck(final Screen screen, final int option) {
+
+		String returnBack = "Continue";
+		String returnTitle = "Return to title";
+
+		if (option == 2)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, returnBack,
+				screen.getHeight() / 3 * 2);
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, returnTitle,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2 );
 	}
 
 	/**
@@ -466,11 +539,9 @@ public final class DrawManager {
 
 	/**
 	 * Draws high scores.
-	 * 
-	 * @param screen
+	 *  @param screen
 	 *            Screen to draw on.
 	 * @param highScores
-	 *            List of high scores.
 	 */
 	public void drawHighScores(final Screen screen,
 			final List<Score> highScores) {
@@ -485,6 +556,16 @@ public final class DrawManager {
 					/ 4 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
 		}
+	}
+
+	/**Draw setting screen*/
+	public void drawSettingScreen(final Screen screen){
+		backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, "level selection", screen.getHeight() / 4);
+		drawCenteredRegularString(screen, "Screen size", screen.getHeight() / 2);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, "Press esc to go back", screen.getHeight() / 10);
 	}
 
 	/**

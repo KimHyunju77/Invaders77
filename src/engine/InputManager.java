@@ -79,6 +79,9 @@ public final class InputManager implements KeyListener {
 	 */
 	@Override
 	public void keyTyped(final KeyEvent key) {
+	}
 
+    public boolean iskeyDown(int vkSpace) {
+		return false;
 	}
 }
