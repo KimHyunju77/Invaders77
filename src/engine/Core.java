@@ -255,6 +255,14 @@ public final class Core {
 				currentScreen = new PauseScreen(width, height, FPS);
 				returnCode = frame.setScreen(currentScreen);
 				break;
+				case 6:
+					//checking
+					currentScreen = new CheckOutScreen(width, height, FPS);
+					LOGGER.info("Starting" + WIDTH + "x" + HEIGHT
+							+ " checkout screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing checkout screen.");
+					break;
 			}
 
 		} while (returnCode != 0);

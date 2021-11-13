@@ -55,12 +55,12 @@ public class PauseScreen<selectionCooldown> extends Screen {
 	/**다음 옵션*/
 	private void nextCheckOption() {
 		if(this.returnCode == 2)
-			this.returnCode = 1;
+			this.returnCode = 6;
 	}
 
 	/**그전 선택지*/
 	private void previousCheckOption() {
-		if (this.returnCode == 1)
+		if (this.returnCode == 6)
 			this.returnCode = 2;
 	}
 

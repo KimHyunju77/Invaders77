@@ -392,13 +392,46 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, returnBack,
 				screen.getHeight() / 3 * 2);
-		if (option == 1)
+		if (option == 6)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, returnTitle,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2 );
 	}
+	/** set CheckOut Screen */
+	public void drawCheckOutScreen(final Screen screen){
+		String checkString = "Are you sure to go to title?";
+		String warningString = "Can't save the score";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, checkString, screen.getHeight()/3);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, warningString, screen.getHeight()/3
+				+ fontBigMetrics.getHeight() * 2);
+
+	}
+
+	/**Check to go out to title*/
+	public void drawCheckOut(final Screen screen, final int option){
+		String yesString = "Yes";
+		String noString = "No";
+
+		if (option == 1)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, yesString, screen.getHeight() / 3 * 2);
+
+		if (option == 5)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, noString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+	}
+
 
 	/**
 	 * Draws game results.
