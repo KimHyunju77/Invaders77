@@ -1,14 +1,12 @@
 language: java
-jdk:
-  - 16
 
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
-script: "./gradlew clean build"
+branches:
+  only:
+    - master
 
-notifications:
-  email:
-    recipients:
-      - ekqls@hanyang.ac.kr
+script: ant build
+
+addons:
+  apt:
+    packages:
+      ant
