@@ -2,7 +2,7 @@ language: java
 
 branches:
   only:
-    - master
+    - develop
 
 script: ant build
 
@@ -10,3 +10,8 @@ addons:
   apt:
     packages:
       ant
+
+notifications:
+  email:
+    recipients:
+      - ekqls09@hanyang.ac.kr
