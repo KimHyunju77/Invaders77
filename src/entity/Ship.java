@@ -21,11 +21,16 @@ public class Ship extends Entity {
 	private static final int BULLET_SPEED = -6;
 	/** Movement of the ship for each unit of time. */
 	private static final int SPEED = 2;
-	
+	/** Milliseconds until the screen accepts user input. */
+	private static final int EFFECT_DELAY = 200;
+
+
 	/** Minimum time between shots. */
 	private Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
+	/** Time to exchange AttackedEffect to DestroyedEffect. */
+	private Cooldown effectCooldown;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -40,7 +45,8 @@ public class Ship extends Entity {
 
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
-		this.destructionCooldown = Core.getCooldown(1000);
+		this.destructionCooldown = Core.getCooldown(1200);
+		this.effectCooldown = Core.getCooldown(200);
 	}
 
 	/**
@@ -80,10 +86,44 @@ public class Ship extends Entity {
 	 * Updates status of the ship.
 	 */
 	public final void update() {
-		if (!this.destructionCooldown.checkFinished())
+
+		if (!this.destructionCooldown.checkFinished()) {// destructionCooldown이 안 끝남 == 아직 부딪힌 이펙트 상태
+			if (!this.effectCooldown.checkFinished()) {
+				this.spriteType = SpriteType.Explosion;
+			}
+			else {
+				switch (this.spriteType) {
+					case Explosion:
+						this.spriteType = SpriteType.ShipDestroyed;
+						for (int i = 1; i <= 4; i++) {
+			  			/**if(this.vibrationCooldown.checkFinished()) {
+							  this.vibrationCooldown.reset();
+							  this.
+
+			  					this.positionX = SPEED * (int) Math.pow(-1, i);
+			  			}*/
+			   		}
+						break;
+				}
+			}
+
+			/* if(this.effectCooldown.checkFinished())
+				this.spriteType = SpriteType.Explosion;
 			this.spriteType = SpriteType.ShipDestroyed;
-		else
+		} */
+
+			/**
+			 *  for (!this.vibrationCooldown.checkFinished()){
+			 *		 for (int i = 1; i <= 4; i++) {
+			 * 			if(this.vibrationCooldown.checkFinished()) {
+			 * 					this.positionX = SPEED * (-1) * i;
+			 * 		}
+			 *  }
+			 */
+		}
+			else
 			this.spriteType = SpriteType.Ship;
+
 	}
 
 	/**
@@ -91,6 +131,7 @@ public class Ship extends Entity {
 	 */
 	public final void destroy() {
 		this.destructionCooldown.reset();
+		this.effectCooldown.reset();
 	}
 
 	/**
@@ -100,6 +141,7 @@ public class Ship extends Entity {
 	 */
 	public final boolean isDestroyed() {
 		return !this.destructionCooldown.checkFinished();
+
 	}
 
 	/**

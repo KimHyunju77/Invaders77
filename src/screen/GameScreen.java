@@ -8,6 +8,9 @@ import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
 import engine.GameState;
+import engine.DrawManager.SpriteType;
+
+
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -38,6 +41,7 @@ public class GameScreen extends Screen {
 	/** Height of the interface separation line. */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
 
+
 	/** Current game difficulty settings. */
 	private GameSettings gameSettings;
 	/** Current difficulty level number. */
@@ -46,6 +50,8 @@ public class GameScreen extends Screen {
 	private EnemyShipFormation enemyShipFormation;
 	/** Player's ship. */
 	private Ship ship;
+	/** Destroyed Player's ship. */
+	private EnemyShip destroyedShip;
 	/** Bonus enemy ship that appears sometimes. */
 	private EnemyShip enemyShipSpecial;
 	/** Minimum time between bonus ship appearances. */
@@ -54,6 +60,8 @@ public class GameScreen extends Screen {
 	private Cooldown enemyShipSpecialExplosionCooldown;
 	/** Time from finishing the level to screen change. */
 	private Cooldown screenFinishedCooldown;
+	/** Time to exchange AttackedEffect to DestroyedEffect. */
+	private Cooldown vibrationCooldown;
 	/** Set of all bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
 	/** Current score. */
@@ -101,6 +109,7 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
+		this.vibrationCooldown = Core.getCooldown(100);
 	}
 
 	/**
@@ -149,7 +158,7 @@ public class GameScreen extends Screen {
 
 		if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
-			if (!this.ship.isDestroyed()) {
+			if (!this.ship.isDestroyed()) { // 맞은 상태 아님
 				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
 						|| inputManager.isKeyDown(KeyEvent.VK_D);
 				boolean moveLeft = inputManager.isKeyDown(KeyEvent.VK_LEFT)
@@ -209,6 +218,14 @@ public class GameScreen extends Screen {
 			this.isRunning = false;
 
 	}
+
+	public void vibration() extends Entity {
+		if(this.vibrationCooldown.checkFinished()) {
+			this.vibrationCooldown.reset();
+			this.ship
+		}
+	}
+
 
 	/**
 	 * Draws the elements associated with the screen.
