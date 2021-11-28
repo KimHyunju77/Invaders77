@@ -1,0 +1,14 @@
+language: java
+jdk:
+  - 16
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+script: "./gradlew clean build"
+
+notifications:
+  email:
+    recipients:
+      - ekqls@hanyang.ac.kr
