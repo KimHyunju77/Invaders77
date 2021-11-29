@@ -1,15 +1,10 @@
 language: java
+jdk:
+  - 16
 
 branches:
   only:
     - develop
-
-script: ant build
-
-addons:
-  apt:
-    packages:
-      ant
 
 notifications:
   email:
